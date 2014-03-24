@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">-->
+
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+    function drawChart() {
+    var query = new google.visualization.Query('http://docs.google.com/spreadsheet/tq?key=0AhCv9Xu_eRnSdHBELWZoZHRaQTl5VXdRa3JLTzByUlE&gid=1');
+    query.setQuery('SELECT A, B, C, D, E');
+    query.send(function (response) {
+        if (response.isError()) {
+            alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+            return;
+        }
+        
+        var data = response.getDataTable();
+        
+        var chart = new google.visualization.LineChart(document.querySelector('#chart_div'));
+        chart.draw(data, {
+            //chartArea: {width: '70%', height: '50%'},
+            fontName: ["Arial"],
+            colors:['#20413A','#ff6600','#0000ff','#ff0000'],
+            curveType: ['none'],
+            fontSize: ['11'],
+            hAxis: {title: 'Pneumococcal Vaccination Provided', titleTextStyle: {italic: false, color: 'black', fontSize: 12}},
+            legend: {position: 'right', textStyle: {color: 'black', fontSize: 12}},
+            lineWidth: 2,
+            pointSize: 7,
+            tooltip: {textStyle: {color: 'Black'}, showColorCode: false}
+        });
+    });
+    }
+
+    </script>
+
+    <title>LineChart - Google Sheet as Data Source</title>
+</head>
+
+<body>
+    <div id="chart_div" style="width: 960px; height: 500px;"></div>
+</body>
+</html>
